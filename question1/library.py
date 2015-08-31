@@ -12,7 +12,7 @@ class Library(object):
         """Returns a book to a shelf already in library"""
         shelf.books.append(book)
 
-    def check_out_book(self, book):
+    def check_out_book(self, book, customer):
         """Checks a book out of the library to a specific customer and
         makes book unavilable for others"""
         try:
@@ -37,3 +37,10 @@ class Book(object):
     def __init__(self, title, author):
         self.title = title
         self.author = author
+        self.available = True
+
+
+class Customer(object):
+    def __init__(self, name):
+        self.name = name
+        self.checked_out_books = []
