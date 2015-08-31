@@ -9,8 +9,21 @@ class Library(object):
         self.shelves.append(shelf)
 
     def return_to_shelf(self, shelf, book):
-        """returns a book to a shelf"""
+        """Returns a book to a shelf already in library"""
         shelf.books.append(book)
+
+    def check_out_book(self, book):
+        """Checks a book out of the library to a specific customer and
+        makes book unavilable for others"""
+        try:
+            if book.available:
+                customer.item.append(book)
+                book.avaiable = False
+            else:
+                print(book.title + " is not available at this time. "
+                      + "Try selecting another book instead. ")
+        except:
+            print("We do not have that book in our collection.")
 
 
 class Shelf(object):
