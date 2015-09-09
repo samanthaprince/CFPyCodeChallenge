@@ -3,21 +3,22 @@ class Library(object):
     def __init__(self):
         self.shelves = []
         self.books = []
+        self.customers = []
 
-    def add_shelf(self, shelf):
+    def new_shelf(self, shelf):
         """Add shelf to library"""
         self.shelves.append(shelf)
 
     def return_to_shelf(self, shelf, book):
-        """Returns a book to a shelf already in library"""
+        """Puts a book on a shelf already in library"""
         shelf.books.append(book)
 
     def check_out_book(self, book, customer):
         """Checks a book out of the library to a specific customer and
-        makes book unavilable for others"""
+        makes book unavilable for others to check out"""
         try:
             if book.available:
-                customer.item.append(book)
+                customer.checked_out_books.append(book)
                 book.avaiable = False
             else:
                 print(book.title + " is not available at this time. "
@@ -44,3 +45,10 @@ class Customer(object):
     def __init__(self, name):
         self.name = name
         self.checked_out_books = []
+
+    def __str__(self):
+        checkedout = ""
+        for checked_out_books in self.checked_out_books:
+            checkedout += str(checked_out_books) + ", "
+        return self.name + " has the following books checked out: \n"
+        + checkedout
