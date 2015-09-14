@@ -5,6 +5,12 @@ class Library(object):
         self.books = []
         self.customers = []
 
+    def __str__(self):
+        contents = ""
+        for books in self.shelves:
+            contents += str(books)
+        return contents
+
     def new_shelf(self, shelf):
         """Add shelf to library"""
         self.shelves.append(shelf)
@@ -26,11 +32,30 @@ class Library(object):
         except:
             print("We do not have that book in our collection.")
 
+    def add_customer(self, customer):
+        """adds a customer to the library"""
+        self.customers.append(customer)
+
+    def remove_customer(self, customer):
+        """removes a customer from the library"""
+        try:
+            self.customers.remove(customer)
+        except ValueError:
+            print("That customer was not found in our system.")
+
 
 class Shelf(object):
     """Create a shelf within the Library"""
     def __init__(self, name):
         self.name = name
+        self.books = []
+
+    def __str__(self):
+        contents = ""
+        for book in self.books:
+            contents += str(book)
+        return "The " + self.name + " shelf contains the following books: \n"
+        + contents
 
 
 class Book(object):
@@ -52,3 +77,32 @@ class Customer(object):
             checkedout += str(checked_out_books) + ", "
         return self.name + " has the following books checked out: \n"
         + checkedout
+
+
+if __name__ == '__main__':
+    # create a new library
+    issaquah_public = Library()
+    # create a new shelf in the issaquah_public library
+    aerospace = Shelf("Aerospace")
+    # create a new book
+    tows = Book("Theory of Wing Sections", "Ira Abbott")
+    # create a new book
+    blt = Book("Boundry Layer Theory", "Hermann Schlichting")
+    # add aerospace shelf to library
+    issaquah_public.new_shelf(aerospace)
+    # add theory of wing sections to aerospace shelf
+    issaquah_public.return_to_shelf(aerospace, tows)
+    # add boundry layer theory to aerospace shelf
+    issaquah_public.return_to_shelf(aerospace, blt)
+    # create a new shelf in the issaquah_public library
+    scifi = Shelf("Science Fiction")
+    # create a new book
+    wwz = Book("World War Z", "Max Brooks")
+    # add world war z to science fiction shelf
+    issaquah_public.return_to_shelf(scifi, wwz)
+    # print library
+    print(issaquah_public)
+    # create a new customer
+    andrew = Customer("Andrew Prince")
+    # add customer to library
+    issaquah_public.add_customer(andrew)
