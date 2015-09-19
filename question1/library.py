@@ -18,38 +18,13 @@ class Library(object):
         """Puts a book on a shelf already in library"""
         shelf.books.append(book)
 
+    def remove_from_shelf(self, shelf, book):
+        """Removes book from shelf"""
+        shelf.books.remove(book)
+
     def num_shelves(self):
         """Counts the number of shelves in the library"""
         return len(self.shelves)
-
-    def check_out_book(self, book, customer):
-        """Checks a book out of the library to a specific customer and
-        makes book unavilable for others to check out"""
-        try:
-            if book.available:
-                customer.checked_out_books.append(book)
-                book.available = False
-            else:
-                print(book.title + " is not available at this time. "
-                      + "Try selecting another book instead. ")
-        except:
-            print("We do not have that book in our collection.")
-
-    def return_book(self, customer, book):
-        """returns book to library when customer is done and makes available"""
-        customer.checked_out_books.remove(book)
-        book.available = True
-
-    def add_customer(self, customer):
-        """adds a customer to the library"""
-        self.customers.append(customer)
-
-    def remove_customer(self, customer):
-        """removes a customer from the library"""
-        try:
-            self.customers.remove(customer)
-        except ValueError:
-            print("That customer was not found in our system.")
 
 
 class Shelf(object):
@@ -61,7 +36,7 @@ class Shelf(object):
     def __str__(self):
         contents = ""
         for book in self.books:
-            contents += str(book)
+            contents += str(book) + ", "
         return "The " + self.name + " shelf contains: \n" + contents
 
 
@@ -70,7 +45,6 @@ class Book(object):
     def __init__(self, title, author):
         self.title = title
         self.author = author
-        self.available = True
 
     def __str__(self):
         return self.title + " written by " + self.author
@@ -100,6 +74,10 @@ if __name__ == '__main__':
     # add world war z to science fiction shelf
     issaquah_public.return_to_shelf(scifi, wwz)
     # Print number of shelves in the library
-    print("There are %s shelves in the library.\n" % issaquah_public.num_shelves())
+    print("There are %s shelves in the library.\n"
+          % issaquah_public.num_shelves())
     # print library
     print(issaquah_public)
+    # remove Theory of Wing Selections from aerospace shelf
+    issaquah_public.remove_from_shelf(aerospace, tows)
+    print(aerospace)
