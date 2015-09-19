@@ -3,7 +3,6 @@ class Library(object):
     def __init__(self):
         self.shelves = []
         self.books = []
-        self.customers = []
 
     def __str__(self):
         contents = ""
@@ -19,18 +18,27 @@ class Library(object):
         """Puts a book on a shelf already in library"""
         shelf.books.append(book)
 
+    def num_shelves(self):
+        """Counts the number of shelves in the library"""
+        return len(self.shelves)
+
     def check_out_book(self, book, customer):
         """Checks a book out of the library to a specific customer and
         makes book unavilable for others to check out"""
         try:
             if book.available:
                 customer.checked_out_books.append(book)
-                book.avaiable = False
+                book.available = False
             else:
                 print(book.title + " is not available at this time. "
                       + "Try selecting another book instead. ")
         except:
             print("We do not have that book in our collection.")
+
+    def return_book(self, customer, book):
+        """returns book to library when customer is done and makes available"""
+        customer.checked_out_books.remove(book)
+        book.available = True
 
     def add_customer(self, customer):
         """adds a customer to the library"""
@@ -54,8 +62,7 @@ class Shelf(object):
         contents = ""
         for book in self.books:
             contents += str(book)
-        return "The " + self.name + " shelf contains the following books: \n"
-        + contents
+        return "The " + self.name + " shelf contains: \n" + contents
 
 
 class Book(object):
@@ -65,18 +72,8 @@ class Book(object):
         self.author = author
         self.available = True
 
-
-class Customer(object):
-    def __init__(self, name):
-        self.name = name
-        self.checked_out_books = []
-
     def __str__(self):
-        checkedout = ""
-        for checked_out_books in self.checked_out_books:
-            checkedout += str(checked_out_books) + ", "
-        return self.name + " has the following books checked out: \n"
-        + checkedout
+        return self.title + " written by " + self.author
 
 
 if __name__ == '__main__':
@@ -96,13 +93,13 @@ if __name__ == '__main__':
     issaquah_public.return_to_shelf(aerospace, blt)
     # create a new shelf in the issaquah_public library
     scifi = Shelf("Science Fiction")
+    # add scifi shelf to library
+    issaquah_public.new_shelf(scifi)
     # create a new book
     wwz = Book("World War Z", "Max Brooks")
     # add world war z to science fiction shelf
     issaquah_public.return_to_shelf(scifi, wwz)
+    # Print number of shelves in the library
+    print("There are %s shelves in the library.\n" % issaquah_public.num_shelves())
     # print library
     print(issaquah_public)
-    # create a new customer
-    andrew = Customer("Andrew Prince")
-    # add customer to library
-    issaquah_public.add_customer(andrew)
