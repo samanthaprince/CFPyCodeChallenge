@@ -2,26 +2,23 @@
 <html lang="en">
   <head>
     <title>To Do List</title>
-    //will need to add this link later
   </head>
   <body>
     <main>
-      <div class="container">
-        <h1 id="header">To Do List</h1>
-        <ul id="list">
-          <li id="one" class="items">Finish Code Challenge</li>
-          <li id="two" class="items">Take Python Development Accelerator</li>
-          <li id="three" class="items">Get job as developer</li>
+        <ul id="list"><h1>To Do List</h1>
+
+            <li class="firstitem">Finish Code Challenge</li>
+            <li>Take Python Development Accelerator</li>
+            <li>Get job as developer</li>
         </ul>
-      </div>
-      <section>
-        <form id="form">
-        <label type="text" id="newitem">Enter new task:</label>
-        <input id="item" placeholder="Enter New Item Here">
-        <button type="submit" >Submit</button>
-        </form>
-      </section>
-      //script src="file name">/script>(add opening)
+        <section id="container">
+            <form id="form">
+                <label type="text" id="newitem" for="task">Enter new task:</label>
+                <input placeholder="Enter New Item Here">
+                <button type="submit">Submit</button>
+            </form>
+        </section>
     </main>
+    <script src="js/todo.js"></script>
   </body>
 </html>
